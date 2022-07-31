@@ -1,0 +1,46 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load urls_tags %}
+{% load price_discount_tags %}
+
+
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Товары{% endif %}
+{% endblock %}
+
+{% block content %}
+    {% include 'includes/nav_bar_sorting.html' %}
+    <div id="main" class="product-list">
+        <h1>{% if category %}{{ category.name }}{% else %}Товары{% endif %}</h1>
+        {% if product_cat == False %}
+            <h3>Доступных товаров этой категории нет</h3>
+        {% endif %}
+        {% for product in page_obj %}
+            {% if product.category.name == category.name or category.name == None %}
+                <div class="item">
+
+                    <a href="{{ product.get_absolute_url }}">
+                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"> <img class="card-img my-2">
+                    </a>
+
+                    
+                    
+                    <div class="product-name">
+                        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                    </div>
+                    <br>
+                    <div class="product-price">
+                        {% if product.on_sale %}
+                            <s style="color:red">{{ product.price }} ₽</s> 
+                        <div style="font-size:160%;"> 
+                            {% price_discount product.price product.sale %} ₽ 
+                        </div> <br>
+                        {% else %}
+                            <div style="font-size:160%;">{{ product.price }} ₽ </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %} 
+        {% endfor %}
+    </div>
+{% endblock %}

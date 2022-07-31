@@ -1,0 +1,61 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load price_discount_tags %}
+
+
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Товары по скидке{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div id="sidebar">
+        {% comment %} price sorting {% endcomment %}
+        <ul>
+            <li class="filters"><a class="filter_by" href="?price_sort=l2h">Цена по возврастанию</a></li>
+            <li class="filters"><a class="filter_by" href="?price_sort=h2l">Цена по убыванию</a></li>
+        </ul>
+        {% comment %} end of price sorting {% endcomment %}
+        {% comment %} category sorting {% endcomment %}
+        <h3>Категории</h3>
+        <ul>
+            <li {% if not category %}class="selected"{% endif %}>
+                <a href="{% url "shop:product_list_sale" %}">Все</a>
+            </li>
+            {% for c in categories %}
+                <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                    <a href="{{ c.get_absolute_url_sales }}">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% comment %} end of category sorting {% endcomment %}
+    </div>
+    <div id="main" class="product-list">
+        <h1>{% if category %}{{ category.name }}{% else %}Товары{% endif %}</h1>
+        {% if product_cat == False %}
+            <h3>Доступных товаров этой категории нет</h3>
+        {% endif %}
+        {% for product in page_obj %}
+            {% if product.category.name == category.name or category.name == None %}
+                <div class="item">
+                    <a href="{{ product.get_absolute_url }}">
+                        <img src="{% if product.image %}{{ product.image.url }}{%else %}{% static "img/no_image.png" %}{% endif %}">
+                    </a>
+                    <div class="product-name">
+                        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                    </div>
+                    <br>
+                    <div class="product-price">
+                        {% if product.on_sale %}
+                        <s style="color:red">{{ product.price }} ₽</s> 
+                        <div style="font-size:160%;">
+                            {% price_discount product.price product.sale %} ₽ 
+                        </div>
+                        {% else %}
+                            <p style="font-size:160%;">{{ product.price }} ₽ </p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %} 
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load price_discount_tags %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="product-detail">
+        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+        <h1>{{ product.name }}</h1>
+        <b>Артикул: {{ product.SKU }}</b>
+        <h2>
+            <a href="{{ product.category.get_absolute_url_products }}">
+                {{ product.category }}
+            </a>
+        </h2>
+        <p class="price">
+            {% if product.on_sale %}
+                <s>{{ product.price }}</s> ₽ <br>
+                {% price_discount product.price product.sale %} ₽ <br>
+            {% else %}
+                {{ product.price }} ₽
+            {% endif %}
+        </p>
+        <form action="{% url "cart:cart_add" product.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="Добавить в корзину">
+        </form>
+        <b>Производитель: {{ product.maker }}</b>
+        {{ product.description|linebreaks }}
+    </div>
+{% endblock %}

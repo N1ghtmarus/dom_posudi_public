@@ -1,0 +1,21 @@
+<div id="sidebar">
+    {% comment %} price sorting {% endcomment %}
+    <ul>
+        <li class="filters"><a class="filter_by" href="?price_sort=l2h">Цена по возврастанию</a></li>
+        <li class="filters"><a class="filter_by" href="?price_sort=h2l">Цена по убыванию</a></li>
+    </ul>
+    {% comment %} end of price sorting {% endcomment %}
+    {% comment %} category sorting {% endcomment %}
+    <h3>Категории</h3>
+    <ul>
+        <li {% if not category %}class="selected"{% endif %}>
+            <a href="{% url "shop:product_list" %}">Все</a>
+        </li>
+        {% for c in categories %}
+            <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                <a href="{{ c.get_absolute_url_products }}">{{ c.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% comment %} end of category sorting {% endcomment %}
+</div>

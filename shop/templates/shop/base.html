@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Дом немецкой посуды{% endblock %}</title>
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'img/logo_icon.jpg' %}"/>
+    <link rel="stylesheet" href={% static "css/bootstrap.min.css" %}>
+    <link rel="stylesheet" href={% static "css/base.css" %}>
+</head>
+<body>
+    <div id="header">
+        <a href="/" class="logo">Дом немецкой посуды</a>
+        <div class="login-in-sign-up">
+            <a href="">Войти</a>
+            <a href="{% url 'users:signup' %}">Регистрация</a>
+        </div>
+    </div>
+    <div id="subheader">
+        <p>
+            <form class="form_search" action="{% url 'shop:product_list' %}" method="get">
+                <label for="site-search">Поиск товаров:</label>
+                <input type="search" name="search" placeholder="поиск">
+                <button type="submit">Поиск</button>
+            </form>
+            <div class="nav_bar_top">
+                <a href="{% url 'shop:product_list' %}">Каталог товаров</a>
+                <a href="{% url 'shop:product_list_sale' %}">Товары со скидкой</a>
+                <a href="{% url 'shop:shop_address' %}">Магазины</a>
+                <a href="#">Личный кабинет</a>
+            </div>
+            <div class="cart">
+                {% with total_items=cart|length %}
+                    {% if total_items > 0 %}
+                        Корзина:
+                        <a href="{% url "cart:cart_detail" %}">
+                            {% comment %} {{ total_items }} item{{ total_items|pluralize }}, {% endcomment %}
+                            {{ cart.get_total_price }} ₽
+                        </a>
+                    {% else %}
+                        Корзина пуста
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </p>
+    </div>
+    <div id="content">
+    {% block content %}
+    {% endblock %}
+    </div>
+{% include 'includes/pagination.html' %}
+</body>
+{% include 'includes/footer.html' %}
+</html>

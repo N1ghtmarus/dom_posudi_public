@@ -1,0 +1,90 @@
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+</head>
+
+<footer class="text-center" style="background-color: #ececec; margin-top:auto; ">
+    <!-- Grid container -->
+    <div class="container" style="color: #5993bb">
+    <!-- Section: Links -->
+    <section class="mt-5">
+        <!-- Grid row-->
+        <div class="row text-center d-flex justify-content-center pt-5">
+        <!-- Grid column -->
+        <div class="col-md-2">
+            <h6 class="text-uppercase font-weight-bold">
+            <a href="{% url 'shop:product_list' %}">Каталог товаров</a>
+            </h6>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2">
+            <h6 class="text-uppercase font-weight-bold">
+            <a href="{% url 'shop:product_list_sale' %}">Товары со скидкой</a>
+            </h6>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2">
+            <h6 class="text-uppercase font-weight-bold">
+            <a href="{% url 'shop:shop_address' %}">Магазины</a>
+            </h6>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2">
+            <h6 class="text-uppercase font-weight-bold">
+            <a href="#!">Личный кабинет</a>
+            </h6>
+        </div>
+        <!-- Grid column -->
+        </div>
+        <!-- Grid row-->
+    </section>
+    <!-- Section: Links -->
+
+    <hr class="my-5" />
+
+    <!-- Section: Text -->
+    <section class="mb-5">
+        <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+            <p>
+                Не только немецкая. Не только посуда.
+            </p>
+        </div>
+        </div>
+    </section>
+    <!-- Section: Text -->
+
+    <!-- Section: Social -->
+    <section class="text-center mb-5">
+        <a href="https://vk.com/domposuda"  target="_blank" rel="noopener noreferrer" class="me-4">
+        <i class="fab fa-vk"></i>
+        </a>
+        <a href="" class="me-4">
+        <i class="fab fa-google"></i>
+        </a>
+        <a href="{% url 'shop:shop_address' %}" class="me-4">
+        <i class="fas fa-map-marker-alt"></i>
+        </a>
+        
+    </section>
+    <!-- Section: Social -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div
+        class="text-center p-3"
+        style="background-color: rgba(0, 0, 0, 0.2)"
+        >
+    © {{ current_year }} Copyright:
+    <a class="text-dark"   
+        >Дом немецкой посуды</a
+        >
+    </div>
+    <!-- Copyright -->
+</footer>
